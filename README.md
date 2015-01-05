@@ -56,7 +56,7 @@ Utility methods that do the loading/saving:
 
 # Standard architecture
 
-	# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ##
+	## # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
 	#                                                            #
 	#       launch.Main (class with the static main method)      #
 	#       - main entry to your app                             #
@@ -79,37 +79,24 @@ If you want to do the heavy work of sorting remotely, there's a lot of options o
 
 # sepp architecture
 
-	# # # # # # # # # # # # # # ##
-	#                            #
-	#        rmi registry        #* * * * * * * * * * * * * * * * * * * * * * * * * * *
-	#                            #                                                    *
-	# # # # # # # # # # # # # # ##                                                    *
-	                *                                                                 *
-	                *                                                                 *
-	                *                                                                 *
-	                *                                                                 *
-	                *                                                                 *
-	                *                                                                 *
-	                *                                                                 *
-	                *                                                                 *
-	# # # # # # # # # # # # # # #                                 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ##
-	#                           #                                 #                                                            #
-	#       sepp server         #                                 #          sepp client                                       #
-	#      (compute engine)     #* * * * * * * * * * * * * * * * *#         (wraps your launch.Main class to relieve you       #
-	#                           #                                 #          of container init, RMI connection init, ...)      #
-	# # # # # # # # # # # # # # #                                 #                                                            #
-	#                           #                                 # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ##
-	#            JVM            #                                 #                                                            #
-	#                           #                                 #                            JVM                             #
-	#       # # # # # # # # # # #                                 #                                                            #
-	#       #     #             #                                 #       # # # # # # # # # # # # # # # # # # # # # # # # # # ##
-	#       # JCL # sepp server #                                 #       #                      #             #               #
-	#       #     #   library   #                                 #       # sepp JCL             # third-party # user library  #
-	#       #     #             #                                 #       # (boot classpath,     # libraries   # (the rest of  #
-	# # # # # # # # # # # # # # #                                 #       # extension classpath, #             # your app)     #
-	                                                              #       # ...)                 #             #               #
-	                                                              #       #                      #             #               #
-	                                                              # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ##                  
+	# # # # # # # # # # # # # # #               ## # # # # # # # # # # # # # #               ## # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+	#                           #               #                            #               #                                                            #
+	#       sepp server         # ============> #        rmi registry        # <============ #          sepp client                                       #
+	#      (compute engine)     #               #                            #               #         (wraps your launch.Main class to relieve you       #
+	#                           #               # # # # # # # # # # # # # # ##               #          of container init, RMI connection init, ...)      #
+	#                           #                                                            #                                                            #
+	# # # # # # # # # # # # # # #                                                            ## # # # # # # # # # # # # # # # # # # # # # # # # # # # # # #
+	#                           #                                                            #                                                            #
+	#            JVM            # <========================================================> #                            JVM                             #
+	#                           #                                                            #                                                            #
+	#       # # # # # # # # # # #                                                            #       # # # # # # # # # # # # # # # # # # # # # # # # # # ##
+	#       #     #             #                                                            #       #                      #             #               #
+	#       # JCL # sepp server #                                                            #       # sepp JCL             # third-party # user library  #
+	#       #     #   library   #                                                            #       # (boot classpath,     # libraries   # (the rest of  #
+	#       #     #             #                                                            #       # extension classpath, #             # your app)     #
+	# # # # # # # # # # # # # # #                                                            #       # ...)                 #             #               #
+	                                                                                         #       #                      #             #               #
+	                                                                                         # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ##                  
 
 This is how it works briefly;
 In the standard JCL, 'boolean ArrayList.add(E e)' add an element to a locally-managed data structure (array). 'void Collections.sort(List<T> list)' sorts a locally-managed list.
