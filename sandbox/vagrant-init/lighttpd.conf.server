@@ -1,0 +1,4 @@
+
+server.document-root = "/vagrant/srv/lib/sepp/www"
+
+server.port = 2099

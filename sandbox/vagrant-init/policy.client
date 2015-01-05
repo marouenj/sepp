@@ -1,0 +1,3 @@
+grant codeBase "file:/vagrant/lib/cli/sepp/src" {
+    permission java.security.AllPermission;
+};

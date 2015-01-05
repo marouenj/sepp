@@ -1,0 +1,27 @@
+
+Vagrant.configure("2") do |config|
+
+  # for building sepp jcl (openjdk + sepp client lib)
+  config.vm.define "jcl" do |jcl|
+    jcl.vm.box = "ubuntu/trusty64"
+    jcl.vm.hostname = "jcl"
+#    jcl.vm.provision :shell, :path => "vagrant-init/bootstrap.jcl.sh"
+  end
+
+  # for deploying sepp server
+  config.vm.define "srv" do |srv|
+    srv.vm.box = "ubuntu/trusty64"
+    srv.vm.hostname = "srv"
+    srv.vm.network "private_network", ip: "192.168.50.10"
+#    srv.vm.provision :shell, :path => "vagrant-init/bootstrap.srv.sh"
+  end
+
+  # for deploying a sample client app on sepp jcl
+  config.vm.define "cli" do |cli|
+    cli.vm.box = "ubuntu/trusty64"
+    cli.vm.hostname = "cli"
+    cli.vm.network "private_network", ip: "192.168.50.11"
+#    cli.vm.provision :shell, :path => "vagrant-init/bootstrap.cli.sh"
+  end
+
+end
