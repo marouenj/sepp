@@ -75,7 +75,7 @@ Utility methods that do the loading/saving:
 	# # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ##
 
 # Taking the sample code remotely
-If you want to do the heavy work of sorting remotely, there's a lot of options out there. Java RMI, Thrift are ways to do it. But then, you have to rewrite your code and change it significantly. Wouldn't it be better if your same code is ready for deployement on a different environment? This is where sepp comes in handy.
+If you want to do the heavy work of sorting remotely, there's a lot of options out there. Java RMI, Thrift are ways to do it. But then, you have to rewrite your code and change it significantly. Wouldn't it be better if your same code is ready for deployment on a different environment? This is where sepp comes in handy.
 
 # sepp architecture
 
@@ -99,7 +99,7 @@ If you want to do the heavy work of sorting remotely, there's a lot of options o
 	                                                                                         # # # # # # # # # # # # # # # # # # # # # # # # # # # # # # ##                  
 
 This is how it works briefly;
-In the standard JCL, 'boolean ArrayList.add(E e)' add an element to a locally-managed data structure (array). 'void Collections.sort(List<T> list)' sorts a locally-managed list.
+In the standard JCL, 'boolean ArrayList.add(E e)' adds an element to a locally-managed data structure (array). 'void Collections.sort(List<T> list)' sorts a locally-managed list.
 In the sepp JCL, 'boolean ArrayList.add(E e)' requests the server to invoke the add method on an remotely-managed (at the server itself), already-instantiated object. 'void Collections.sort(List<T> list)' requests the server to sort a list (either sent along the request, or being already stored at the server).
 The server should run on the same standard JCL you use to run you app the usual way.
 
@@ -118,3 +118,5 @@ Besides, not every bit has to be changed. It's pointless (and not feasible in so
 What would be interesting to implement however is the Java Collections Framework. Taking it seamlessly on the remote side may fit some apps' needs that heavily rely on collections/maps manipulation and sharing...
 
 # What's missing
+This implementation is intentionally kept simple, as it is a PoC only. But besides the work of writing the JCL, problems such as concurrency and SPoF have to be addressed:
+- Currently, when a client shuts down, the remote objects persist at the server. One way to avoid this is to introduce Zookeeper's ephemeral nodes to the architecture.
